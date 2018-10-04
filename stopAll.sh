@@ -1,13 +1,17 @@
 #!/bin/bash
+
+set -e
+set -o pipefail
             
 CURRENT_PATH=`pwd`
-if [[ $DEPLOY_MY_TRAC == "docker_compose" ]]
+if [[ -n ${MY_TRAC_DEPLOYMENT} && ${MY_TRAC_DEPLOYMENT} == "docker-compose" ]]
 then 
-    cd My-TRAC-Companion/examples/CSVToKafkaTopic/deployments/docker-compose
-    yes | ./stop.sh 
+    cd My-TRAC-Companion/examples/CSVToKafkaTopic/deployments/${MY_TRAC_DEPLOYMENT}
+    ls
+    ./stop.sh 
     cd $CURRENT_PATH
-    cd My-TRAC-Platform/deployments/docker-compose
-    yes | ./stop.sh
+    cd My-TRAC-Platform/deployments/${MY_TRAC_DEPLOYMENT}
+    ./stop.sh
 else
     echo "Not implemented yet"
 fi

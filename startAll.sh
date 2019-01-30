@@ -28,8 +28,13 @@ do
 	then
         touch .docker-compose
     else
-		echo "Invalid deployment type \"${MY_TRAC_DEPLOYMENT}\""
-		exit 1 
+        if [[ $MY_TRAC_DEPLOYMENT = "kubernetes" ]] 
+        then
+            touch .kubernetes
+        else
+		    echo "Invalid deployment type \"${MY_TRAC_DEPLOYMENT}\""
+		    exit 1 
+        fi
 	fi
         shift # past argument
         ;;
@@ -49,12 +54,18 @@ CURRENT_PATH=`pwd`
 if [[ -n "${MY_TRAC_DEPLOYMENT}" ]]
 then 
     export MY_TRAC_DEPLOYMENT
+
+    echo "Deploying My-TRAC Platform"
     cd My-TRAC-Platform/deployments/${MY_TRAC_DEPLOYMENT}
     ./start.sh
+
+
+    echo "Deploying CSVToKafkaTopic"
     cd $CURRENT_PATH
     cd My-TRAC-Companion/examples/CSVToKafkaTopic/deployments/${MY_TRAC_DEPLOYMENT}
     ./start.sh
 
+    echo "Deploying RatingsVisualizer"
     cd $CURRENT_PATH
     cd Operators-Portal/examples/RatingsVisualizer/deployments/${MY_TRAC_DEPLOYMENT}
     ./start.sh

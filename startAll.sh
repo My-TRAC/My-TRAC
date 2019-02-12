@@ -49,26 +49,27 @@ then
 	exit
 fi
 
-CURRENT_PATH=`pwd`
+
+# LIST OF COMPONENTS TO START
+COMPONENTS_LIST="
+My-TRAC-Platform 
+My-TRAC-Companion/examples/CSVToKafkaTopic
+Operators-Portal/examples/RatingsVisualizer
+"
 
 if [[ -n "${MY_TRAC_DEPLOYMENT}" ]]
 then 
-    export MY_TRAC_DEPLOYMENT
 
-    echo "Deploying My-TRAC Platform"
-    cd My-TRAC-Platform/deployments/${MY_TRAC_DEPLOYMENT}
+  export MY_TRAC_DEPLOYMENT
+  CURRENT_PATH=`pwd`
+
+  for COMPONENT in ${COMPONENTS_LIST}
+  do
+    echo "Deploying ${COMPONENT}"
+    cd ${COMPONENT}/deployments/${MY_TRAC_DEPLOYMENT}
     ./start.sh
-
-
-    echo "Deploying CSVToKafkaTopic"
-    cd $CURRENT_PATH
-    cd My-TRAC-Companion/examples/CSVToKafkaTopic/deployments/${MY_TRAC_DEPLOYMENT}
-    ./start.sh
-
-    echo "Deploying RatingsVisualizer"
-    cd $CURRENT_PATH
-    cd Operators-Portal/examples/RatingsVisualizer/deployments/${MY_TRAC_DEPLOYMENT}
-    ./start.sh
+    cd ${CURRENT_PATH}
+  done
 else
     echo "Not implemented yet"
 fi

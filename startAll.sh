@@ -57,6 +57,11 @@ My-TRAC-Companion/examples/CSVToKafkaTopic
 Operators-Portal/examples/RatingsVisualizer
 "
 
+COMPONENTS_LIST="
+My-TRAC-Platform 
+My-TRAC-Companion/examples/CSVToKafkaTopic
+"
+
 if [[ -n "${MY_TRAC_DEPLOYMENT}" ]]
 then 
 

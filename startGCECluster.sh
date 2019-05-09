@@ -4,7 +4,7 @@ gcloud container --project "buoyant-episode-216912" \
   clusters create "mytrac-cluster-1" \
   --zone "europe-west1-b" \
   --username "admin" \
-  --cluster-version "1.11.6-gke.2" \
+  --cluster-version "1.11.8-gke.6" \
   --machine-type "n1-standard-4" \
   --image-type "COS" \
   --disk-type "pd-standard" \

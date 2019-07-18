@@ -1,3 +1,3 @@
 #!/bin/bash
 
-gcloud container clusters delete mytrac-cluster-1 --zone "europe-west1-b"
+gcloud container clusters delete mytrac-cluster-2 --zone "europe-west1-b"
